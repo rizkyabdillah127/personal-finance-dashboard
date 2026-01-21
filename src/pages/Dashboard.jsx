@@ -1,13 +1,12 @@
 import { useState } from "react";
 import TransactionForm from "../components/forms/TransactionForm";
 import TransactionChart from "../components/charts/TransactionChart";
+import PhotoModal from "../components/PhotoModal";
 
 function Dashboard() {
-  const [transactions, setTransactions] = useState([
-    { id: 1, description: "Monthly Salary", amount: 5000000, type: "income", category: "salary", date: "2026-01-01" },
-    { id: 2, description: "Groceries", amount: 500000, type: "expense", category: "food", date: "2026-01-02" },
-    { id: 3, description: "Grab Ride", amount: 100000, type: "expense", category: "transport", date: "2026-01-03" },
-  ]);
+  const [transactions, setTransactions] = useState([]);
+
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const handleAddTransaction = (transaction) => {
     setTransactions([...transactions, transaction]);
@@ -70,7 +69,7 @@ function Dashboard() {
               <div className="flex items-end justify-between pt-4 border-t border-slate-100">
                 <div>
                   <p className="text-xs text-slate-500">This month</p>
-                  <p className="text-lg font-semibold text-green-600 mt-1">+12.5%</p>
+                  <p className="text-lg font-semibold text-green-600 mt-1">0%</p>
                 </div>
               </div>
             </div>
@@ -95,7 +94,7 @@ function Dashboard() {
               <div className="flex items-end justify-between pt-4 border-t border-slate-100">
                 <div>
                   <p className="text-xs text-slate-500">This month</p>
-                  <p className="text-lg font-semibold text-orange-600 mt-1">+8.3%</p>
+                  <p className="text-lg font-semibold text-orange-600 mt-1">0%</p>
                 </div>
               </div>
             </div>
@@ -170,6 +169,7 @@ function Dashboard() {
                   <th className="px-8 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Date</th>
                   <th className="px-8 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Description</th>
                   <th className="px-8 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Category</th>
+                  <th className="px-8 py-4 text-center text-xs font-semibold text-slate-600 uppercase tracking-wider">Photo</th>
                   <th className="px-8 py-4 text-right text-xs font-semibold text-slate-600 uppercase tracking-wider">Amount</th>
                   <th className="px-8 py-4 text-center text-xs font-semibold text-slate-600 uppercase tracking-wider">Type</th>
                 </tr>
@@ -199,6 +199,25 @@ function Dashboard() {
                           {tx.category}
                         </span>
                       </td>
+                      <td className="px-8 py-4 text-center">
+                        {tx.photo ? (
+                          <div className="flex justify-center">
+                            <button
+                              onClick={() => setSelectedPhoto({ photo: tx.photo, description: tx.description })}
+                              className="h-10 w-10 rounded object-cover cursor-pointer hover:scale-150 transition transform overflow-hidden border-2 border-blue-300"
+                            >
+                              <img
+                                src={tx.photo}
+                                alt={tx.description}
+                                className="h-full w-full object-cover"
+                                title="Click to view"
+                              />
+                            </button>
+                          </div>
+                        ) : (
+                          <span className="text-gray-400 text-sm">−</span>
+                        )}
+                      </td>
                       <td className={`px-8 py-4 text-sm font-semibold text-right ${tx.type === "income" ? "text-green-600" : "text-red-600"}`}>
                         {tx.type === "income" ? "+" : "−"} Rp {(tx.amount/1000000).toFixed(1)}M
                       </td>
@@ -207,7 +226,7 @@ function Dashboard() {
                           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-50 text-green-700 border border-green-200">
                             <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                             Income
-                          </span>
+                          </span>               
                         ) : (
                           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
                             <span className="w-2 h-2 bg-red-500 rounded-full"></span>
@@ -223,6 +242,15 @@ function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Photo Modal */}
+      {selectedPhoto && (
+        <PhotoModal
+          photo={selectedPhoto.photo}
+          description={selectedPhoto.description}
+          onClose={() => setSelectedPhoto(null)}
+        />
+      )}
     </div>
   );
 }

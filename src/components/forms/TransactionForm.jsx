@@ -6,6 +6,8 @@ export default function TransactionForm({ onAdd }) {
     amount: "",
     type: "income",
     category: "salary",
+    photo: null,
+    photoPreview: null,
   });
 
   const categories = {
@@ -29,11 +31,38 @@ export default function TransactionForm({ onAdd }) {
     }));
   };
 
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          photo: file,
+          photoPreview: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removePhoto = () => {
+    setFormData((prev) => ({
+      ...prev,
+      photo: null,
+      photoPreview: null,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.description && formData.amount) {
       onAdd({
-        ...formData,
+        description: formData.description,
+        amount: formData.amount,
+        type: formData.type,
+        category: formData.category,
+        photo: formData.photoPreview,
         id: Date.now(),
         date: new Date().toLocaleDateString(),
       });
@@ -42,6 +71,8 @@ export default function TransactionForm({ onAdd }) {
         amount: "",
         type: "income",
         category: "salary",
+        photo: null,
+        photoPreview: null,
       });
     }
   };
@@ -126,7 +157,54 @@ export default function TransactionForm({ onAdd }) {
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Photo Upload */}
+        <div className="mb-8">
+          <label className="block text-sm font-semibold text-gray-700 mb-3">📸 Attach Photo (Optional)</label>
+          <div className="relative">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              className="hidden"
+              id="photo-input"
+            />
+            <label
+              htmlFor="photo-input"
+              className="flex items-center justify-center w-full px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition group"
+            >
+              <div className="text-center">
+                <svg className="w-8 h-8 text-gray-400 mx-auto mb-2 group-hover:text-blue-500 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                <p className="text-sm font-medium text-gray-600 group-hover:text-blue-600 transition">
+                  {formData.photoPreview ? "Change photo" : "Click or drag to upload photo"}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">JPG, PNG, GIF up to 5MB</p>
+              </div>
+            </label>
+          </div>
+
+          {/* Photo Preview */}
+          {formData.photoPreview && (
+            <div className="mt-4 relative rounded-lg overflow-hidden border-2 border-blue-300 bg-blue-50">
+              <img
+                src={formData.photoPreview}
+                alt="Photo preview"
+                className="w-full h-48 object-cover"
+              />
+              <button
+                type="button"
+                onClick={removePhoto}
+                className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 transition shadow-lg"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <p className="text-xs text-gray-600 p-2 text-center bg-blue-100">Photo ready to upload</p>
+            </div>
+          )}
+        </div>
         <button
           type="submit"
           className={`w-full py-3 px-4 rounded-lg text-white font-bold transition transform hover:scale-105 ${
