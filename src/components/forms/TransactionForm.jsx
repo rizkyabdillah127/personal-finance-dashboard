@@ -79,7 +79,7 @@ export default function TransactionForm({ onAdd }) {
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6">
+      <div className="bg-linear-to-r from-blue-600 to-blue-700 px-8 py-6">
         <h2 className="text-2xl font-bold text-white">Add Transaction</h2>
         <p className="text-blue-100 text-sm mt-1">Record your income or expense</p>
       </div>

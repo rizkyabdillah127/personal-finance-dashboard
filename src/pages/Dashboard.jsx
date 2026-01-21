@@ -24,12 +24,12 @@ function Dashboard() {
   const balance = totalIncome - totalExpense;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 flex flex-col">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-50 flex flex-col">
       {/* Premium Header */}
       <div className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="px-8 py-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center shadow-sm">
+            <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center shadow-sm">
               <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
               </svg>
@@ -52,7 +52,7 @@ function Dashboard() {
         <div className="grid grid-cols-3 gap-6 mb-8">
           {/* Income Card */}
           <div className="group relative bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all duration-300">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-blue-50/0 group-hover:from-blue-50 group-hover:to-transparent rounded-xl transition-all duration-300"></div>
+            <div className="absolute inset-0 bg-linear-to-br from-blue-50/0 to-blue-50/0 group-hover:from-blue-50 group-hover:to-transparent rounded-xl transition-all duration-300"></div>
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
@@ -60,7 +60,7 @@ function Dashboard() {
                   <h2 className="text-4xl font-bold text-slate-900 mt-2">Rp {(totalIncome/1000000).toFixed(1)}M</h2>
                   <p className="text-xs text-slate-500 mt-2">From all sources</p>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg flex items-center justify-center group-hover:from-green-100 group-hover:to-emerald-100 transition-all duration-300">
+                <div className="w-12 h-12 bg-linear-to-br from-green-50 to-emerald-50 rounded-lg flex items-center justify-center group-hover:from-green-100 group-hover:to-emerald-100 transition-all duration-300">
                   <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
@@ -77,7 +77,7 @@ function Dashboard() {
 
           {/* Expense Card */}
           <div className="group relative bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-lg hover:border-orange-300 transition-all duration-300">
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-50/0 to-orange-50/0 group-hover:from-orange-50 group-hover:to-transparent rounded-xl transition-all duration-300"></div>
+            <div className="absolute inset-0 bg-linear-to-br from-orange-50/0 to-orange-50/0 group-hover:from-orange-50 group-hover:to-transparent rounded-xl transition-all duration-300"></div>
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
@@ -85,7 +85,7 @@ function Dashboard() {
                   <h2 className="text-4xl font-bold text-slate-900 mt-2">Rp {(totalExpense/1000000).toFixed(1)}M</h2>
                   <p className="text-xs text-slate-500 mt-2">Spending this period</p>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-br from-orange-50 to-red-50 rounded-lg flex items-center justify-center group-hover:from-orange-100 group-hover:to-red-100 transition-all duration-300">
+                <div className="w-12 h-12 bg-linear-to-br from-orange-50 to-red-50 rounded-lg flex items-center justify-center group-hover:from-orange-100 group-hover:to-red-100 transition-all duration-300">
                   <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                   </svg>
@@ -101,7 +101,7 @@ function Dashboard() {
           </div>
 
           {/* Balance Card */}
-          <div className={`group relative bg-gradient-to-br ${balance >= 0 ? 'from-blue-600 to-blue-700' : 'from-red-600 to-red-700'} rounded-xl border border-slate-300 p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
+          <div className={`group relative bg-linear-to-br ${balance >= 0 ? 'from-blue-600 to-blue-700' : 'from-red-600 to-red-700'} rounded-xl border border-slate-300 p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
@@ -147,7 +147,7 @@ function Dashboard() {
         {/* Premium Table */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
           {/* Table Header */}
-          <div className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 px-8 py-6">
+          <div className="bg-linear-to-r from-slate-50 to-slate-100 border-b border-slate-200 px-8 py-6">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-semibold text-slate-900">Recent Transactions</h2>
